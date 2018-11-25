@@ -1,3 +1,27 @@
 out/
 .idea/
-target/
+target/*
+.settings/*
+.project
+.classpath
+
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+/build
+*.war
+*.ear
+
+# idea
+*.iml
+*.ipr
+*.iws
+
+# gradle
+.gradle
+
+# other
+build/
