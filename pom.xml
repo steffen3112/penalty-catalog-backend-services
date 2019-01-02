@@ -7,6 +7,7 @@
     <groupId>com.penalty.catalog</groupId>
     <artifactId>services</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
 
     <!--_________________________________________________________ DEPENDENCIES _________________________________________________________-->
@@ -27,7 +28,22 @@
     <!--_________________________________________________________     BUILD    __________________________________________________________-->
 
     <build>
-        <finalName>penaltycatalog</finalName>
+        <finalName>ROOT</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <attachClasses>true</attachClasses>
+                    <webXml>target/ROOT/WEB-INF/web.xml</webXml>
+                    <webResources>
+                        <resource>
+                            <directory>web</directory>
+                            <filtering>true</filtering>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
     <!--_________________________________________________________  PROPERTIES  __________________________________________________________-->
