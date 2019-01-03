@@ -10,10 +10,11 @@ Furthermore TomEE is used as Application Server, which is also part of the Build
 ```
 ######Run:
 ```
-    mvn tomee:run
+4.  mvn tomee:run
 ```
 
-#####Docker-Build:
+#####Docker-Build & RUN:
 ```
-
+1.  docker build -t ["imageName"] <location> 
+2.  docker container run -e CATALINA_OPTS="-DjdbcUrlPGRDB=<your-POSTGRES-URL> -DuserPGRDB=<your-POSTGRES-User> -DpwdPGRDB=<your-POSTGRES-PWD>" -p 8080:8080 ["imageName"]
 ```
