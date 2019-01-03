@@ -15,6 +15,7 @@ Furthermore TomEE is used as Application Server, which is also part of the Build
 
 #####Docker-Build & RUN:
 ```
-1.  docker build -t ["imageName"] <location> 
-2.  docker container run -e CATALINA_OPTS="-DjdbcUrlPGRDB=<your-POSTGRES-URL> -DuserPGRDB=<your-POSTGRES-User> -DpwdPGRDB=<your-POSTGRES-PWD>" -p 8080:8080 ["imageName"]
+1.  mvn clean install
+2.  docker build -t ["imageName"] <location> 
+3.  docker container run -e CATALINA_OPTS="-DjdbcUrlPGRDB=<your-POSTGRES-URL> -DuserPGRDB=<your-POSTGRES-User> -DpwdPGRDB=<your-POSTGRES-PWD>" -p 8080:8080 ["imageName"]
 ```
