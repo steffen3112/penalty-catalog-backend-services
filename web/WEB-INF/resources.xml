@@ -1,0 +1,12 @@
+<resources>
+    <!-- Remote Postegres DataSource, can hold max 5 Connections, credentials in ${Catalina.Home}/conf/system.properties -->
+    <Resource id="PenaltyDB" type="DataSource">
+        JdbcDriver          org.postgresql.Driver
+        JtaManaged          true
+        DefaultAutoCommit   false
+        MaxActive           5
+        MinIdle             5
+        MaxIdle             5
+        InitialSize         1
+    </Resource>
+</resources>

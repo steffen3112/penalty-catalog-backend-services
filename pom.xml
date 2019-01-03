@@ -22,6 +22,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.5</version>
+        </dependency>
+
     </dependencies>
 
 
@@ -30,6 +37,8 @@
     <build>
         <finalName>ROOT</finalName>
         <plugins>
+
+            <!-- https://maven.apache.org/plugins/maven-war-plugin/ -->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
@@ -43,6 +52,22 @@
                     </webResources>
                 </configuration>
             </plugin>
+
+            <!-- http://tomee.apache.org/tomee-maven-plugin.html -->
+            <plugin>
+                <groupId>org.apache.tomee.maven</groupId>
+                <artifactId>tomee-maven-plugin</artifactId>
+                <version>8.0.0-M1</version>
+                <configuration>
+                    <tomeeClassifier>plus</tomeeClassifier>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <args>-DjdbcUrlPGRDB=${REMOTE_POSTGRES_URL} -DuserPGRDB=${REMOTE_POSTGRES_USER} -DpwdPGRDB=${REMOTE_POSTGRES_PWD}</args>
+                    <libs>
+                        <lib>org.postgresql:postgresql:42.2.5</lib>
+                    </libs>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
