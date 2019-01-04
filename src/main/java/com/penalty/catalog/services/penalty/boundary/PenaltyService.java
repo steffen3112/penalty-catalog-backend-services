@@ -2,7 +2,6 @@ package com.penalty.catalog.services.penalty.boundary;
 
 import com.penalty.catalog.services.penalty.entity.Penalty;
 
-import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,7 +19,7 @@ public class PenaltyService {
     @RolesAllowed(value = { "admin" })
     public List<Penalty> getPenalties() {
 
-        Query query = em.createQuery("SELECT p FROM Penalty p");
+        Query query = em.createNamedQuery("allPenalties", Penalty.class);
 
         return (List<Penalty>) query.getResultList();
 

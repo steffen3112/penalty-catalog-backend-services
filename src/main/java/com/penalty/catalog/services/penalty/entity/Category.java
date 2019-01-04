@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@NamedQuery(name = "findCategoryByName", query = "SELECT c FROM Category c WHERE c.name = :name")
 public class Category {
 
     @Id
@@ -23,27 +24,8 @@ public class Category {
         this.name = name;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Penalty> getPenaltyList() {
-        return penaltyList;
-    }
-
-    public void setPenaltyList(List<Penalty> penaltyList) {
-        this.penaltyList = penaltyList;
-    }
 }

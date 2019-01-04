@@ -17,6 +17,9 @@ public class PenaltyResource {
     @Inject
     PenaltyService penaltyService;
 
+    @Inject
+    CategoryService categoryService;
+
     @GET
     public String penalties () {
         return this.penaltyService.getPenalties().toString();
@@ -25,9 +28,22 @@ public class PenaltyResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void save(JsonObject penalty) {
-        String name = penalty.getString("name");
-        Penalty myPenalty = new Penalty(name, "Fake", Penalty.Weight.HIGH, 0.0, 0, new Category("Trinken"));
-        this.penaltyService.savePenalty(myPenalty);
+
+        String penaltyName = penalty.getString("penaltyName");
+        String description = penalty.getString("description");
+        String weight = penalty.getString("weight");
+        double amount = Double.parseDouble(penalty.getString("amount"));
+        int unit = Integer.parseInt(penalty.getString("unit"));
+        String categoryName = penalty.getString("categoryName");
+
+        Category category = categoryService.getCategoryIfItExists(categoryName);
+
+        if(category != null) {
+            this.penaltyService.savePenalty(new Penalty(penaltyName, description, Penalty.Weight.HIGH, amount, unit, category));
+        }
+        else {
+            this.penaltyService.savePenalty(new Penalty(penaltyName, description, Penalty.Weight.HIGH, amount, unit, new Category(categoryName)));
+        }
     }
 
 }
