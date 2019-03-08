@@ -25,6 +25,7 @@ public class PenaltyService {
 
     }
 
+    // TODO: Handle duplicate Insertions, the penalties have to be unique in the table
     @RolesAllowed(value = { "admin" })
     public void savePenalty(Penalty penalty) {
 

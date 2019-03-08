@@ -2,6 +2,7 @@ package com.penalty.catalog.services.penalty.boundary;
 
 import com.penalty.catalog.services.penalty.entity.Category;
 import com.penalty.catalog.services.penalty.entity.Penalty;
+import com.penalty.catalog.services.penalty.entity.Team;
 
 import javax.inject.Inject;
 import javax.json.JsonObject;
@@ -20,6 +21,9 @@ public class PenaltyResource {
     @Inject
     CategoryService categoryService;
 
+    @Inject
+    TeamService teamService;
+
     @GET
     public String penalties () {
         return this.penaltyService.getPenalties().toString();
@@ -31,18 +35,20 @@ public class PenaltyResource {
 
         String penaltyName = penalty.getString("penaltyName");
         String description = penalty.getString("description");
-        String weight = penalty.getString("weight");
+        Penalty.Weight weight = Penalty.Weight.valueOf(penalty.getString("weight"));
         double amount = Double.parseDouble(penalty.getString("amount"));
         int unit = Integer.parseInt(penalty.getString("unit"));
         String categoryName = penalty.getString("categoryName");
+        String teamId = penalty.getString("teamId");
 
         Category category = categoryService.getCategoryIfItExists(categoryName);
+        Team team = teamService.getTeam(teamId);
 
         if(category != null) {
-            this.penaltyService.savePenalty(new Penalty(penaltyName, description, Penalty.Weight.HIGH, amount, unit, category));
+            this.penaltyService.savePenalty(new Penalty(penaltyName, description, weight, amount, unit, category, new Team("ASV", "Neumarkt")));
         }
         else {
-            this.penaltyService.savePenalty(new Penalty(penaltyName, description, Penalty.Weight.HIGH, amount, unit, new Category(categoryName)));
+            this.penaltyService.savePenalty(new Penalty(penaltyName, description, weight, amount, unit, new Category(categoryName), new Team("ASV", "Neumarkt")));
         }
     }
 

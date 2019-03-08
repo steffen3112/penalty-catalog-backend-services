@@ -4,6 +4,11 @@ import javax.persistence.*;
 
 @Entity
 @NamedQuery(name = "allPenalties", query = "SELECT p FROM Penalty p")
+@Table(
+        name="Penalty",
+        uniqueConstraints=
+        @UniqueConstraint(columnNames={"name", "description"})
+)
 public class Penalty {
 
     @Id
@@ -18,20 +23,24 @@ public class Penalty {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "FK_CATEGORY"))
     private Category penaltyCategory;
+    @ManyToOne(cascade =  CascadeType.ALL)
+    @JoinColumn(name = "team_id", foreignKey = @ForeignKey(name = "FK_TEAM"))
+    private Team team;
 
     public Penalty() {
 
     }
 
-    public Penalty(String name, String description, Weight weight, double amount, int unit, Category penaltyCategory) {
+    public Penalty(String name, String description, Weight weight, double amount, int unit, Category penaltyCategory, Team team) {
         this.name = name;
         this.description = description;
         this.weight = weight;
         this.amount = amount;
         this.unit = unit;
         this.penaltyCategory = penaltyCategory;
+        this.team = team;
     }
-    
+
     @Override
     public String toString() {
         return "Penalty{" +
@@ -41,7 +50,8 @@ public class Penalty {
                 ", weight=" + weight +
                 ", amount=" + amount +
                 ", unit=" + unit +
-                ", category=" + penaltyCategory.getName() +
+                ", penaltyCategory=" + penaltyCategory +
+                ", team=" + team +
                 '}';
     }
 
